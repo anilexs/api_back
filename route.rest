@@ -1,0 +1,32 @@
+###
+GET http://localhost/api_back
+
+###
+POST http://localhost/api_back/
+
+{
+    "pseudo": "silica",
+    "password": "silica",
+    "action": "login"
+}
+
+###
+POST http://localhost/api_back/
+
+{
+    "pseudo": "silica",
+    "password": "silica",
+    "firstname": "silica",
+    "lastname": "sao",
+    "action": "register"
+}
+
+###
+POST http://localhost/api_back/
+
+{
+    "expeditor": 2,
+    "receiver": 6,
+    "message": "contenu du message",
+    "action": "send message"
+}
