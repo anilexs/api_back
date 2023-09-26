@@ -1,13 +1,16 @@
 <?php
+header("Access-Control-Allow-Origin: *");
 // inclure functions.php
 require_once "functions.php";
 
 if($_SERVER["REQUEST_METHOD"] == "GET"){
-    $url = $_GET[""];
-    echo json_encode([
-        "status" => 200,
-        "data" => $url
-    ]);
+    $url = $_SERVER["REQUEST_URI"];
+    $url = trim($url, "\/");
+    $url = explode("/", $url);
+    $action = $url[1];
+    if($action == "getuserlist"){
+        getListUser();
+    }
 }else{
     // ce que l'utilisateur envoi via un formulaire on recupere
     $data = json_decode(file_get_contents("php://input"), true);
