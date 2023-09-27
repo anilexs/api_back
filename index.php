@@ -11,6 +11,14 @@ if($_SERVER["REQUEST_METHOD"] == "GET"){
     if($action == "getuserlist"){
         getListUser();
     }
+    else if($action == "getListMessage"){
+        getListMessage($url[2], $url[3]);
+    }else{
+        echo json_encode([
+            "status" => 404,
+            "message" => "not found"
+        ]);
+    }
 }else{
     // ce que l'utilisateur envoi via un formulaire on recupere
     $data = json_decode(file_get_contents("php://input"), true);

@@ -56,7 +56,7 @@ function login($pseudo, $password){
                 echo json_encode([
                     "status" => 200,
                     "message" => "felicitation...",
-                    "data" => $user
+                    "userInfo" => $user
                 ]);
             }else{
                echo json_encode([
@@ -110,6 +110,31 @@ function getListUser(){
             "status" => 200,
             "message" => "voici la liste des users",
             "data" => $listUsers
+        ]);
+    }catch(PDOException $e){
+        echo json_encode([
+            "status" => 500,
+            "message" => $e->getMessage()
+        ]);
+    }
+}
+
+
+// fonction pour recuperer la conversation entre 2 users
+function getListMessage($expeditor, $receiver){
+    // se connecter a la base de données
+    $db = dbConnect();  
+    // preparer la requete
+    $request = $db->prepare("SELECT * FROM messages WHERE expeditor_id = ? AND receiver_id = ? OR expeditor_id = ? AND receiver_id = ?");
+    // executer la requete
+    try{
+        $request->execute(array($expeditor, $receiver, $receiver, $expeditor));
+        // recuperer le resultat dans un tableau
+        $message = $request->fetchAll(PDO::FETCH_ASSOC);
+        echo json_encode([
+            "status" => 200,
+            "message" => "voici la liste de votre discution",
+            "listMessage" => $message
         ]);
     }catch(PDOException $e){
         echo json_encode([

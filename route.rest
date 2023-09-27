@@ -30,3 +30,6 @@ POST http://localhost/api_back/
     "message": "contenu du message",
     "action": "send message"
 }
+
+###
+GET http://localhost/api_back/getListMessage/2/5
